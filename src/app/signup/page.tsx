@@ -26,7 +26,7 @@ const Signup = () => {
       console.log(data);
       router.push("/login");
     } catch (err: any) {
-      console.log("Sign-up failed!!!");
+      console.log("Sign-up failed!!!",err);
       // toast.error(err.message);
     } finally {
       setLoading(false);
@@ -81,10 +81,13 @@ const Signup = () => {
         />
 
         <button
-          className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600"
+          className={`p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 ${
+            buttonDisabled ? "line-through" : ""
+          } `}
           onClick={onSignUp}
+          disabled={buttonDisabled}
         >
-          {buttonDisabled ? "No Sign up" : "Sign Up"}
+          Sign Up
         </button>
         <Link href={`/login`}>Visit Login</Link>
       </div>

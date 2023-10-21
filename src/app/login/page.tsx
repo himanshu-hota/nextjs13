@@ -3,7 +3,7 @@
 import React, { useState,useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import {axios} from "axios";
+import axios from "axios";
 
 
 const Login = () => {
@@ -15,15 +15,15 @@ const Login = () => {
     password: "",
     });
 
-  const onLogin = () => {
+  const onLogin = async () => {
 
     try {
       setLoading(true);
-      
-
-      axios.post("/api/login");
+      const response = await axios.post("/api/users/login",user); 
+      console.log(response);
+      router.push('/profile');
     } catch (err:any) {
-      console.log("Login failed!!!",err.message);
+      console.log("Login failed!!!",err);
       
     }finally{
       setLoading(false);
@@ -49,12 +49,12 @@ const Login = () => {
   return (
     <>
       <div className="flex flex-col items-center justify-center min-h-screen">
-        <h1>Login</h1>
+        <h1>{loading ? 'Processing' : "Login"}</h1>
         <hr />
 
         <label htmlFor="email">Email</label>
         <input
-          className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 "
+          className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-black"
           type="text"
           id="username"
           value={user.email}
@@ -64,7 +64,7 @@ const Login = () => {
 
         <label htmlFor="password">Password</label>
         <input
-          className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 "
+          className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-black"
           type="text"
           id="password"
           value={user.password}
@@ -73,10 +73,11 @@ const Login = () => {
         />
 
         <button
-          className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600"
+          className={`p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 ${buttonDisabled ? 'line-through' : ''}`}
           onClick={onLogin}
+          disabled={buttonDisabled}
         >
-          Loign Up
+          Login here
         </button>
         <Link href={`/signup`}>Visit Sign Up</Link>
       </div>
