@@ -49,7 +49,7 @@ const Login = () => {
   return (
     <>
       <div className="flex flex-col items-center justify-center min-h-screen">
-        <h1>{loading ? 'Processing' : "Login"}</h1>
+        <h1>{loading ? "Processing" : "Login"}</h1>
         <hr />
 
         <label htmlFor="email">Email</label>
@@ -73,13 +73,18 @@ const Login = () => {
         />
 
         <button
-          className={`p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 ${buttonDisabled ? 'line-through' : ''}`}
+          className={`p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 ${
+            buttonDisabled ? "line-through" : ""
+          }`}
           onClick={onLogin}
           disabled={buttonDisabled}
         >
           Login here
         </button>
-        <Link href={`/signup`}>Visit Sign Up</Link>
+        <div className="btns flex justify-between items-center w-[250px]">
+          <Link href={`/signup`}>Visit Sign Up</Link>
+          <Link href={`/resetPasswordRequest`}>Forgot Password</Link>
+        </div>
       </div>
     </>
   );
