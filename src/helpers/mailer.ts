@@ -44,14 +44,26 @@ export const sendEmail = async ({ email, emailType, userId }: any) => {
       };
     }
 
-    const transporter = nodemailer.createTransport({
-      host: process.env.MAILTRAP_HOST,
-      port: process.env.MAILTRAP_PORT,
-      auth: {
-        user: process.env.MAILTRAP_USER,
-        pass: process.env.MAILTRAP_PASS,
-      },
-    });
+    // const transporter = nodemailer.createTransport({
+    //   host: process.env.MAILTRAP_HOST,
+    //   port: process.env.MAILTRAP_PORT,
+    //   auth: {
+    //     user: process.env.MAILTRAP_USER,
+    //     pass: process.env.MAILTRAP_PASS,
+    //   },
+    // });
+
+    const user = process.env.MAILTRAP_USER || "";
+    const pass = process.env.MAILTRAP_PASS || "";
+
+      const transporter = nodemailer.createTransport({
+        host: "sandbox.smtp.mailtrap.io",
+        port: 2525,
+        auth: {
+          user: user,
+          pass: pass,
+        },
+      });
 
     const mailResponse = await transporter.sendMail(mailOption);
 
