@@ -9,11 +9,11 @@ export const sendEmail = async ({ email, emailType, userId }: any) => {
     const hashedToken = await bcryptjs.hash(userId.toString(), 10);
 
     let mailOption = {
-      from: "HimanshuHota55@gmail.com",
+      from: process.env.MAILTRAP_FROM_EMAIL,
       to: email,
       subject: "",
-      html:"",
-    };;
+      html: "",
+    };
 
     console.log(emailType);
     if (emailType === "VERIFY") {
@@ -45,11 +45,11 @@ export const sendEmail = async ({ email, emailType, userId }: any) => {
     }
 
     const transporter = nodemailer.createTransport({
-      host: "sandbox.smtp.mailtrap.io",
-      port: 2525,
+      host: process.env.MAILTRAP_HOST,
+      port: process.env.MAILTRAP_PORT,
       auth: {
-        user: "ca6d56448f3343",
-        pass: "dc65977c26319b",
+        user: process.env.MAILTRAP_USER,
+        pass: process.env.MAILTRAP_PASS,
       },
     });
 
